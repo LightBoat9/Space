@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Textures/indicator.png" type="Texture" id=1]
+
+[node name="BaseIndicator" type="KinematicBody2D"]
+
+transform/pos = Vector2( 259.013, 93.6682 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="IndicatorSprite" type="Sprite" parent="."]
+
+texture = ExtResource( 1 )
+
+

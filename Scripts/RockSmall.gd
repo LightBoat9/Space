@@ -44,6 +44,7 @@ func out_of_range():
 func collisions():
 	if (!is_colliding()): return
 	var collider = get_collider()
+	
 	if (collider == null): return
 	
 	if (collider.is_in_group("Rocks")):
@@ -51,4 +52,3 @@ func collisions():
 		collider.set_velocity(velocity)
 	elif (collider == Player):
 		reverse()
-		print(velocity)
