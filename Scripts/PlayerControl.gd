@@ -48,5 +48,6 @@ func _player_movement():
 
 func collisions():
 	if (!Player.is_colliding()): return
-	move_speed = -move_speed/2
-	Player.get_collider().set_velocity(Player.get_travel())
+	if (Player.get_collider().is_in_group("Rocks")):
+		move_speed = -move_speed/2
+		Player.get_collider().set_velocity(Player.get_travel())
