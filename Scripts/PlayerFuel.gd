@@ -17,14 +17,21 @@ func _ready():
 func use_fuel():
 	if (fuel > 0): fuel -= burn_rate
 	else: fuel = 0
+	update_fuel_gui()
 	
-	# Scale the fuel gui by the ratio of fuel left
+func set_fuel(value):
+	fuel = value
+	update_fuel_gui()
+
+func refuel():
+	fuel = MaxFuel
+	update_fuel_gui()
+
+# Scale the fuel gui by the ratio of fuel left
+func update_fuel_gui():
 	var rec = Rect2(Vector2(0,0), Vector2(16,48 * get_fuel_ratio()))
 	FuelGUI.set_region_rect(rec)
 	FuelGUI.set_pos(Vector2(0,-48 * get_fuel_ratio() + 48)) # Correct the GUI position
-
-func set_fuel(value):
-	fuel = value
 	
 func get_fuel():
 	return fuel

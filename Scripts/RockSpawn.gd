@@ -1,53 +1,56 @@
 extends Node2D
 
-var screen_size;
-var w
-var h 
-var mid_point
-
-var rock_amount = 0
-var max_rock_amount = 32
-
+# Misc
 onready var Math = get_parent().get_node("Math")
-
-onready var RockSpawn = load("res://Scenes/RockSpawn.tscn")
-
-onready var Game = get_parent()
 onready var Player = get_parent().get_node("Player")
-onready var SpawnArea = get_node("SpawnArea")
+onready var Base = get_parent().get_node("Base")
 
+# Rock Nodes
 onready var RockSmall = load("res://Scenes/RockSmall.tscn")
 
+# Screen Variables
+onready var screen_size = get_parent().get_viewport_rect().size
+onready var w = screen_size.x
+onready var h = screen_size.y
+onready var mid_point = Vector2(w, h)
+
+# Level
+const LevelIncreaseDistance = 100
+var level = 0
+
+# Rocks
+var rock_amount = 0
+var max_rock_amount = 0
+
 func _ready():
-	screen_size = Game.get_viewport_rect().size
-	w = screen_size.x
-	h = screen_size.y
-	mid_point = Vector2(w, h)
-	
-	SpawnArea.connect("body_enter", self, "player_enter")
-	
 	set_process(true)
 
 func _process(delta):
-	spawn_random_rocks()
-	pass
+	update_max_rock_amount()
+	spawn()
 
-func player_enter(body):
-	pass
-
-func spawn_random_rocks():
+# Increases/ Decreases the amount of rocks that will spawn
+# based on the distance from the center base
+func update_max_rock_amount():
+	var dist_from_base = Math.distance_to_point(Player.get_pos(), Base.get_pos())
+	level = int(dist_from_base / LevelIncreaseDistance)
+	max_rock_amount = level
+	
+# Spawn an assortment of rocks, enemies, etc based 
+# on distance from the center base
+func spawn():
 	while (rock_amount < max_rock_amount):
 		spawn_small_rock()
 		rock_amount += 1
 	
+# Spawn a small rock randomly right outside of the camera view
 func spawn_small_rock():
 	randomize()
-	
-	var screen_size = Game.get_viewport_rect().size
-	
 	var rand_x_pos
 	var rand_y_pos
 	
+	# Generate the random spawn position
+	# Choose to either spawn at the above/below player view or beside the view
 	if (Math.choose(0,1)):
 		rand_x_pos = Player.get_pos().x + (rand_range(w/2, w) * Math.choose(-1,1))
 		rand_y_pos = Player.get_pos().y + rand_range(-h/2, h/2)
@@ -55,6 +58,7 @@ func spawn_small_rock():
 		rand_x_pos = Player.get_pos().x + rand_range(-w/2, w/2)
 		rand_y_pos = Player.get_pos().y + (rand_range(h/2, h) * Math.choose(-1,1))
 	
+	# Instance the rock
 	var inst = RockSmall.instance()
 	inst.set_pos(Vector2(rand_x_pos, rand_y_pos))
 	get_parent().call_deferred("add_child", inst)

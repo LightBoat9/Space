@@ -7,12 +7,14 @@ onready var PlayerFuel = get_parent().get_node("PlayerFuel")
 
 # Other Nodes
 onready var Math = get_parent().get_parent().get_node("Math")
+onready var Base = get_parent().get_parent().get_node("Base")
 
 # Rotation
 var rotation = 0
 const RotationSpeed = 0.05
 
 # Movement
+var velocity = Vector2()
 var move_speed = 0
 var acceleration = 0.1
 var MaxMoveSpeed = 3
@@ -23,15 +25,16 @@ func _ready():
 	
 func _process(delta):
 	_player_rotation()
-	_collisions()
 	_player_movement()
+	_collisions()
+	Player.move(velocity)
 	
 # Rotates the player from input as long as the player has fuel
 func _player_rotation():
 	if (PlayerFuel.get_fuel() <= 0): return
 	
-	var left = PlayerInput.get_key_left()
-	var right = PlayerInput.get_key_right()
+	var left = PlayerInput.key_left
+	var right = PlayerInput.key_right
 	rotation += (left - right) * RotationSpeed
 	Player.set_rot(rotation)
 
@@ -39,8 +42,16 @@ func _player_rotation():
 func _collisions():
 	if (!Player.is_colliding()): return
 	if (Player.get_collider().is_in_group("Rocks")):
-		move_speed = -(round(move_speed/2))
+		bounce()
 		Player.get_collider().set_velocity(Player.get_travel())
+	
+# Bounce from the collision
+func bounce():
+	if (!Player.is_colliding()): return
+	var n = Player.get_collision_normal()
+	var v = velocity
+	velocity = -(2*(n*v)*n-v)/2
+	move_speed = -move_speed/2
 	
 # Handles the players movement from input
 func _player_movement():
@@ -50,13 +61,13 @@ func _player_movement():
 	var move = forward - back # The horizontal input as one integer 
 	
 	var up_rotation = rotation + PI/2 # Default rotation is to the right
-	var angle_to_vector = Math.angle2vector(up_rotation) # Convert angle to vector
+	var angle_to_vector = Math.angle_to_vector(up_rotation) # Convert angle to vector
 	
 	if (PlayerFuel.fuel > 0):
 		accelleration(move)
 	
-	Player.move(angle_to_vector * move_speed)
-	if (move != 0): PlayerFuel.use_fuel()
+	velocity = angle_to_vector * move_speed
+	fuel(move)
 
 # Takes player input and increases or decreases the move_speed by acceleration
 # see _player_movement()
@@ -67,3 +78,16 @@ func accelleration(input):
 		if (move_speed > 0.1): move_speed -= acceleration
 		elif (move_speed < -0.1): move_speed += acceleration
 		else: move_speed = 0
+	
+func fuel(input):
+	var at_base = Math.distance_to_point(Player.get_pos(), Base.get_pos()) < 100
+	if (input != 0 && !at_base):
+		PlayerFuel.use_fuel()
+	elif (at_base):
+		PlayerFuel.refuel()
+	
+func get_velocity():
+	return velocity
+
+func get_rotation():
+	return rotation

@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/PlayerControl.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerFuel.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/PlayerInput.gd" type="Script" id=4]
-[ext_resource path="res://Scripts/PlayerGraphics.gd" type="Script" id=5]
-[ext_resource path="res://Textures/player.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/PlayerWeapon.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/PlayerGraphics.gd" type="Script" id=6]
+[ext_resource path="res://Textures/player.png" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -55,13 +56,17 @@ script/script = ExtResource( 3 )
 
 script/script = ExtResource( 4 )
 
-[node name="PlayerGraphics" type="Node" parent="."]
+[node name="PlayerWeapon" type="Node" parent="."]
 
 script/script = ExtResource( 5 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="PlayerGraphics" type="Node" parent="."]
 
-texture = ExtResource( 6 )
+script/script = ExtResource( 6 )
+
+[node name="PlayerSprite" type="Sprite" parent="."]
+
+texture = ExtResource( 7 )
 
 [node name="ParticlesForward" type="Particles2D" parent="."]
 
@@ -118,6 +123,64 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 color/color = Color( 0.894118, 0.231373, 0.266667, 1 )
+
+[node name="ParticlesLeftGun" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -11.5, -5.5 )
+config/amount = 8
+config/lifetime = 1.0
+config/time_scale = 3.0
+config/emit_timeout = 0.5
+config/emitting = false
+config/process_mode = 1
+config/explosiveness = 0.5
+params/direction = 180.0
+params/spread = 20.0
+params/linear_velocity = 10.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 0.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color = Color( 0.992157, 0.701961, 0.364706, 1 )
+
+[node name="ParticlesRightGun" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+transform/pos = Vector2( 11.5, -5.5 )
+config/amount = 8
+config/lifetime = 1.0
+config/time_scale = 3.0
+config/emit_timeout = 0.5
+config/emitting = false
+config/process_mode = 1
+config/explosiveness = 0.5
+params/direction = 180.0
+params/spread = 20.0
+params/linear_velocity = 10.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 2.0
+params/final_size = 0.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color = Color( 0.992157, 0.701961, 0.364706, 1 )
 
 [node name="PlayerCollisions" type="CollisionShape2D" parent="."]
 

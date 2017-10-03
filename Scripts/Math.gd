@@ -1,13 +1,17 @@
 extends Node
 
-func _ready():
-	pass
-
+func angle_to_vector(angle):
+	return Vector2(cos(angle), -sin(angle))
+	
 func choose(a, b):
 	randomize()
-	var r = rand_range(-1,1)
-	if (r > 0): return a
+	return conditional(rand_range(-1,1) > 0, a, b)
+
+func conditional(condition, a, b):
+	if (condition): return a
 	return b
 
-func angle2vector(angle):
-	return Vector2(cos(angle), -sin(angle))
+func distance_to_point(a, b):
+	return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2))
+
+
