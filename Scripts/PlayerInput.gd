@@ -1,11 +1,13 @@
 extends Node
 
-var key_right = 0
-var key_left = 0
-var key_up = 0
-var key_down = 0
+# Movement
+var key_right = 0 setget , get_key_right
+var key_left = 0 setget , get_key_left
+var key_up = 0 setget , get_key_up
+var key_down = 0 setget , get_key_down
 
-var key_shoot = 0
+# Misc
+var key_shoot = 0 setget , get_key_shoot
 
 func _ready():
 	set_process(true)
