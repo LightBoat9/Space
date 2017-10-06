@@ -1,4 +1,4 @@
 extends KinematicBody2D
 
 func _ready():
-	pass
+	add_to_group("Player")

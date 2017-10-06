@@ -19,4 +19,17 @@ func _ready():
 	
 func _process(delta):
 	set_rot(rotation)
+	_collisions()
 	move(velocity)
+
+func _collisions():
+	if (!is_colliding()): return
+	if (get_collider() == null): return
+	
+	if (get_collider().is_in_group("Rocks")):
+		_destroy()
+		get_collider().damage()
+		pass
+	
+func _destroy():
+	queue_free()

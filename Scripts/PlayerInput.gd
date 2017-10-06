@@ -10,8 +10,13 @@ var key_down = 0 setget , get_key_down
 var key_shoot = 0 setget , get_key_shoot
 
 func _ready():
+	set_process_input(true)
 	set_process(true)
 	
+func _input(event):
+	if (event.is_action_pressed("key_fullscreen")):
+		OS.set_window_fullscreen(!OS.is_window_fullscreen())
+		
 func _process(delta):
 	key_right = Input.is_action_pressed("key_right")
 	key_left = Input.is_action_pressed("key_left")

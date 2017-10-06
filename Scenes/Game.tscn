@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://Textures/gui/fuel/1.png" type="Texture" id=1]
 [ext_resource path="res://Textures/gui/fuel/0.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/RockSpawn.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Math.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Math.gd" type="Script" id=5]
-[ext_resource path="res://icon.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/BaseIndicator.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scripts/BaseIndicator.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Money.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/RockSpawn.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Math.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Math.gd" type="Script" id=7]
+[ext_resource path="res://icon.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/BaseIndicator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/BaseIndicator.gd" type="Script" id=11]
 
 [node name="Game" type="Node2D"]
 
@@ -22,6 +24,7 @@ scale = Vector2( 1, 1 )
 
 [node name="Fuel" type="Node2D" parent="GUI"]
 
+editor/display_folded = true
 transform/pos = Vector2( 16, 16 )
 
 [node name="Fill" type="Sprite" parent="GUI/Fuel"]
@@ -36,26 +39,32 @@ region_rect = Rect2( 0, 0, 16, 48 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="RockSpawn" parent="." instance=ExtResource( 3 )]
+[node name="Inventory" parent="GUI" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 48, 16 )
+
+[node name="Money" parent="GUI" instance=ExtResource( 4 )]
+
+[node name="RockSpawn" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 256, 144 )
 
-[node name="Math" parent="." instance=ExtResource( 4 )]
+[node name="Math" parent="." instance=ExtResource( 6 )]
 
-script/script = ExtResource( 5 )
+script/script = ExtResource( 7 )
 
 [node name="Base" type="Sprite" parent="."]
 
 transform/pos = Vector2( 256, 144 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 
-[node name="Player" parent="." instance=ExtResource( 7 )]
+[node name="Player" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 256, 144 )
 
-[node name="BaseIndicator" parent="." instance=ExtResource( 8 )]
+[node name="BaseIndicator" parent="." instance=ExtResource( 10 )]
 
 transform/pos = Vector2( 255, 80 )
-script/script = ExtResource( 9 )
+script/script = ExtResource( 11 )
 
 

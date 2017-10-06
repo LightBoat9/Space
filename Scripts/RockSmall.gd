@@ -9,6 +9,8 @@ var speed = 0.5
 onready var Player = get_parent().get_node("Player")
 onready var RockSpawn = get_parent().get_node("RockSpawn")
 
+onready var MSilver = load("res://Scenes/MineralSilver.tscn")
+
 func _ready():
 	add_to_group("Rocks")
 	
@@ -24,7 +26,7 @@ func _process(delta):
 	if (dist_to_player() > 512):
 		out_of_range()
 		
-	collisions()
+	_collisions()
 	
 	move(velocity)
 
@@ -41,7 +43,7 @@ func out_of_range():
 	RockSpawn.rock_amount -= 1
 	queue_free()
 
-func collisions():
+func _collisions():
 	if (!is_colliding()): return
 	var collider = get_collider()
 	
@@ -52,3 +54,12 @@ func collisions():
 		collider.set_velocity(velocity)
 	elif (collider == Player):
 		reverse()
+
+func damage():
+	_destroy()
+
+func _destroy():
+	var inst = MSilver.instance()
+	inst.set_pos(get_pos())
+	get_parent().call_deferred("add_child", inst)
+	queue_free()
