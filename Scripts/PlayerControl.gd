@@ -85,4 +85,5 @@ func get_rotation():
 	return rotation
 	
 func upgrade():
-	MaxMoveSpeed = 2 + PlayerUpgrades.get_level("Engine")
+	MaxMoveSpeed = 2 + (PlayerUpgrades.get_level("Engine") * 0.2)
+	print(MaxMoveSpeed)

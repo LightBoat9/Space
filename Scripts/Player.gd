@@ -30,5 +30,7 @@ func set_in_menu(value):
 	PlayerControl.set_process(!in_menu)
 	PlayerGraphics.set_process(!in_menu)
 	
+	BaseUpgrades.toggle_input()
+	
 func get_in_menu():
 	return in_menu

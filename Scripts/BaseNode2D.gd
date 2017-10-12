@@ -20,5 +20,6 @@ onready var Money = Root.get_node("Game/GUI/Money")
 
 # Misc Nodes
 onready var Base = Root.get_node("Game/Base")
+onready var BaseUpgrades = Base.get_node("BaseUpgrades")
 onready var Math = Root.get_node("Game/Math")
 onready var RockSpawn = Root.get_node("Game/RockSpawn")
