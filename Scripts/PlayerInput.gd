@@ -8,6 +8,7 @@ var key_down = 0 setget , get_key_down
 
 # Misc
 var key_shoot = 0 setget , get_key_shoot
+var key_escape = 0 setget , get_key_escape
 
 func _ready():
 	set_process_input(true)
@@ -24,6 +25,7 @@ func _process(delta):
 	key_down = Input.is_action_pressed("key_down")
 	
 	key_shoot = Input.is_action_pressed("key_shoot")
+	key_escape = Input.is_action_pressed("key_escape")
 	
 func get_key_right():
 	return key_right
@@ -39,3 +41,6 @@ func get_key_down():
 
 func get_key_shoot():
 	return key_shoot
+
+func get_key_escape():
+	return key_escape

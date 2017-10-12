@@ -1,15 +1,14 @@
-extends KinematicBody2D
+extends "BaseNode2D.gd"
+
+onready var SmallParticles = load("res://Scenes/RockSmallParticles.tscn")
+onready var MGold = load("res://Scenes/MineralGold.tscn")
+onready var MSilver = load("res://Scenes/MineralSilver.tscn")
 
 var rotation = 0
 var RotationSpeed
 
 var velocity
 var speed = 0.5
-
-onready var Player = get_parent().get_node("Player")
-onready var RockSpawn = get_parent().get_node("RockSpawn")
-
-onready var MSilver = load("res://Scenes/MineralSilver.tscn")
 
 func _ready():
 	add_to_group("Rocks")
@@ -23,8 +22,7 @@ func _process(delta):
 	rotation += RotationSpeed
 	set_rot(rotation)
 	
-	if (dist_to_player() > 512):
-		out_of_range()
+	out_of_range()
 		
 	_collisions()
 	
@@ -36,12 +34,13 @@ func set_velocity(value):
 func reverse():
 	velocity = -velocity/2
 	
-func dist_to_player():
-	return sqrt(pow((Player.get_pos().x - get_pos().x), 2) + pow((Player.get_pos().y - get_pos().y), 2))
+func distance_to_player():
+	return Math.distance_to_point(get_pos(), Player.get_pos())
 
 func out_of_range():
-	RockSpawn.rock_amount -= 1
-	queue_free()
+	if (distance_to_player() > 512):
+		RockSpawn.rock_amount -= 1
+		queue_free()
 
 func _collisions():
 	if (!is_colliding()): return
@@ -59,7 +58,21 @@ func damage():
 	_destroy()
 
 func _destroy():
-	var inst = MSilver.instance()
+	drop_item()
+	spawn_particles()
+	queue_free()
+
+func spawn_particles():
+	var inst = SmallParticles.instance()
 	inst.set_pos(get_pos())
 	get_parent().call_deferred("add_child", inst)
-	queue_free()
+	
+func drop_item():
+	randomize()
+	var inst = MSilver.instance()
+	var rand = rand_range(0, 100)
+	if (rand < 60): inst = MSilver.instance()
+	else: inst = MGold.instance()
+	inst.init(RotationSpeed)
+	inst.set_pos(get_pos())
+	get_parent().call_deferred("add_child", inst)

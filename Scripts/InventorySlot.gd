@@ -5,13 +5,16 @@ onready var ItemSprite = get_node("ItemSprite")
 
 # Textures
 var TSilver = preload("res://Textures/mineral_silver.png")
+var TGold = preload("res://Textures/mineral_gold.png")
 
 var textures = {
-	"Silver" : TSilver
+	"Silver" : TSilver,
+	"Gold" : TGold
 }
 
 var values = {
-	"Silver" : 5
+	"Silver" : 5,
+	"Gold" : 10
 }
 
 var item = null setget set_item, get_item

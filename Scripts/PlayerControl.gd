@@ -1,13 +1,4 @@
-extends Node
-
-# Player Nodes
-onready var Player = get_parent()
-onready var PlayerInput = get_parent().get_node("PlayerInput")
-onready var PlayerFuel = get_parent().get_node("PlayerFuel")
-
-# Other Nodes
-onready var Math = get_parent().get_parent().get_node("Math")
-onready var Base = get_parent().get_parent().get_node("Base")
+extends "BaseNode2D.gd"
 
 # Rotation
 var rotation = 0
@@ -17,7 +8,7 @@ const RotationSpeed = 0.05
 var velocity = Vector2()
 var move_speed = 0
 var acceleration = 0.1
-var MaxMoveSpeed = 3
+var MaxMoveSpeed = 2
 var MinMoveSpeed = -1
 
 func _ready():
@@ -41,6 +32,7 @@ func _player_rotation():
 # Runs as long as a collision is detected 
 func _collisions():
 	if (!Player.is_colliding()): return
+	if (Player.get_collider() == null): return
 	if (Player.get_collider().is_in_group("Rocks")):
 		bounce()
 		Player.get_collider().set_velocity(Player.get_travel())
@@ -91,3 +83,6 @@ func get_velocity():
 
 func get_rotation():
 	return rotation
+	
+func upgrade():
+	MaxMoveSpeed = 2 + PlayerUpgrades.get_level("Engine")

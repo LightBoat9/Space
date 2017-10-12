@@ -1,12 +1,6 @@
-extends Node2D
+extends "BaseNode2D.gd"
 
-# Misc
-onready var Math = get_parent().get_node("Math")
-onready var Player = get_parent().get_node("Player")
-onready var Base = get_parent().get_node("Base")
-
-# Rock Nodes
-onready var RockSmall = load("res://Scenes/RockSmall.tscn")
+var RockSmall = load("res://Scenes/RockSmall.tscn")
 
 # Screen Variables
 onready var screen_size = get_parent().get_viewport_rect().size

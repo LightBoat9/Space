@@ -1,10 +1,4 @@
-extends Node
-
-# Player Nodes
-onready var Game = get_parent().get_parent()
-onready var Player = get_parent()
-onready var PlayerControl = get_parent().get_node("PlayerControl")
-onready var PlayerInput = get_parent().get_node("PlayerInput")
+extends "BaseNode2D.gd"
 
 # Particles
 onready var PLeft = get_parent().get_node("ParticlesLeftGun")
@@ -23,7 +17,8 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	if (can_shoot && PlayerInput.key_shoot):
+	var at_base = Math.distance_to_point(Player.get_pos(), Base.get_pos()) < 100
+	if (can_shoot && PlayerInput.key_shoot && !at_base):
 		fire()
 
 func initialize_timer():
@@ -51,8 +46,12 @@ func fire():
 	
 	can_shoot = false
 	
+	timer.set_wait_time(fire_rate)
 	timer.start()
 	
 	# Particles
 	PLeft.set_emitting(true)
 	PRight.set_emitting(true)
+
+func upgrade():
+	fire_rate = 1.1 - (0.1 * PlayerUpgrades.get_level("Weapon"))

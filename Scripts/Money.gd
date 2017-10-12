@@ -1,12 +1,13 @@
-extends Node2D
+extends "String.gd"
 
-onready var tempLabel = get_node("Label")
-
-var amount = 0 setget , get_amount
+var amount = 11110 setget , get_amount
 
 func add_money(value):
 	amount += value
-	tempLabel.set_text("Currency : " + str(amount))
+	set_string(str(amount))
 
 func get_amount():
 	return amount
+	
+func spend(value):
+	amount -= value

@@ -1,9 +1,4 @@
-extends Node
-
-onready var Player = get_parent()
-onready var Base = get_parent().get_parent().get_node("Base")
-onready var Inventory = get_parent().get_parent().get_node("GUI/Inventory")
-onready var Math = get_parent().get_parent().get_node("Math")
+extends "BaseNode2D.gd"
 
 func _ready():
 	set_process(true)

@@ -1,9 +1,8 @@
-extends Node2D
+extends "BaseNode2D.gd"
 
 onready var Slot = load("res://Scenes/InventorySlot.tscn")
-onready var Money = get_parent().get_node("Money")
 
-var slot_amount = 3 setget set_slot_amount, get_slot_amount
+var slot_amount = 3 setget , get_slot_amount
 var slot_space = 8 # Space between slots
 var slot_offset = 24 # The slot width
 var item_num = 0 # Number of items
@@ -11,9 +10,9 @@ var item_num = 0 # Number of items
 var slot_array = []
 
 func _ready():
-	add_slots()
+	instance_slots()
 
-func add_slots():
+func instance_slots():
 	for i in range(slot_amount):
 		var inst = Slot.instance()
 		slot_array.append(inst)
@@ -26,8 +25,12 @@ func add_item(value):
 	item_num += 1
 	return true
 
-func set_slot_amount(value):
-	slot_amount = value
+func add_slot():
+	var inst = Slot.instance()
+	slot_array.append(inst)
+	inst.set_pos(Vector2(((slot_offset + slot_space) * slot_amount), 0))
+	add_child(inst)
+	slot_amount += 1
 
 func get_slot_amount():
 	return slot_amount

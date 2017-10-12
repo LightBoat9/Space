@@ -1,13 +1,8 @@
-extends KinematicBody2D
-
-# Nodes
-onready var Player = get_parent().get_node("Player")
-onready var Base = get_parent().get_node("Base")
-onready var Math = get_parent().get_node("Math")
+extends "BaseNode2D.gd"
 
 var position = Vector2()
 var rotation = Vector2()
-var distance = 25
+var distance = 25 # From player
 
 func _ready():
 	set_process(true)
