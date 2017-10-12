@@ -1,16 +1,14 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://Scenes/Math.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Math.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/RockSpawn.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Base.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/BaseIndicator.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/BaseIndicator.gd" type="Script" id=7]
-[ext_resource path="res://Textures/gui/fuel/1.png" type="Texture" id=8]
-[ext_resource path="res://Textures/gui/fuel/0.png" type="Texture" id=9]
-[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Money.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Textures/gui/fuel/1.png" type="Texture" id=6]
+[ext_resource path="res://Textures/gui/fuel/0.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Money.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node2D"]
 
@@ -28,11 +26,6 @@ transform/pos = Vector2( 256, 144 )
 
 transform/pos = Vector2( 256, 144 )
 
-[node name="BaseIndicator" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 255, 80 )
-script/script = ExtResource( 7 )
-
 [node name="GUI" type="CanvasLayer" parent="."]
 
 layer = 1
@@ -47,21 +40,21 @@ transform/pos = Vector2( 16, 16 )
 
 [node name="Fill" type="Sprite" parent="GUI/Fuel"]
 
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
 centered = false
 region = true
 region_rect = Rect2( 0, 0, 16, 48 )
 
 [node name="Outline" type="Sprite" parent="GUI/Fuel"]
 
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 centered = false
 
-[node name="Inventory" parent="GUI" instance=ExtResource( 10 )]
+[node name="Inventory" parent="GUI" instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 48, 16 )
 
-[node name="Money" parent="GUI" instance=ExtResource( 11 )]
+[node name="Money" parent="GUI" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 16, 268 )
 

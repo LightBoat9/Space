@@ -1,3 +1,4 @@
+# The indicator for the direction of the base from the player
 extends "BaseNode2D.gd"
 
 var position = Vector2()
@@ -10,8 +11,8 @@ func _ready():
 func _process(delta):
 	rotation()
 	position()
-	set_rot(rotation.angle() - 135)
-	set_pos(position)
+	set_rot(rotation.angle() - 135 - Player.get_rot())
+	set_global_pos(position)
 	
 func rotation():
 	rotation.x = Base.get_pos().x - Player.get_pos().x

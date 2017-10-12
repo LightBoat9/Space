@@ -1,3 +1,4 @@
+# Holds the current amount of money that the player has earned
 extends "String.gd"
 
 var amount = 11110 setget , get_amount

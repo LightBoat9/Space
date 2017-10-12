@@ -1,3 +1,5 @@
+# A class for spawning in rocks and enemies based on the distance the player
+# is from the base
 extends "BaseNode2D.gd"
 
 var RockSmall = load("res://Scenes/RockSmall.tscn")
@@ -18,11 +20,11 @@ var max_rock_amount = 0
 
 func _ready():
 	set_process(true)
-
+	
 func _process(delta):
 	update_max_rock_amount()
 	spawn()
-
+	
 # Increases/ Decreases the amount of rocks that will spawn
 # based on the distance from the center base
 func update_max_rock_amount():
@@ -52,7 +54,8 @@ func spawn_small_rock():
 		rand_x_pos = Player.get_pos().x + rand_range(-w/2, w/2)
 		rand_y_pos = Player.get_pos().y + (rand_range(h/2, h) * Math.choose(-1,1))
 	
-	# Instance the rock
+	# Instance the rock and set the position
 	var inst = RockSmall.instance()
 	inst.set_pos(Vector2(rand_x_pos, rand_y_pos))
 	get_parent().call_deferred("add_child", inst)
+	
