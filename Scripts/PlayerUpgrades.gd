@@ -16,7 +16,7 @@ func upgrade(value):
 		if (levels[value] < 10): levels[value] += 1
 	
 	# Call the upgrade function in each upgrade object
-	if (get_upgrade_ref(value) != null):get_upgrade_ref(value).upgrade()
+	if (get_upgrade_ref(value) != null): get_upgrade_ref(value).upgrade()
 	
 # Returns the level of the passed in upgrade reference
 func get_level(value):
@@ -30,5 +30,6 @@ func get_upgrade_ref(value):
 	value = str(value)
 	if (value == "Engine" || value == "0"): return PlayerControl
 	elif (value == "Fuel" || value == "1"): return PlayerFuel
+	elif (value == "Health" || value == "2"): return Health
 	elif (value == "Cargo" || value == "3"): return Inventory
 	elif (value == "Weapon" || value == "4"): return PlayerWeapon

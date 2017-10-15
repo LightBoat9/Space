@@ -1,3 +1,4 @@
+# Turns information from PlayerInput into movement
 extends "BaseNode2D.gd"
 
 # Rotation
@@ -77,6 +78,7 @@ func fuel(input):
 		PlayerFuel.use_fuel()
 	elif (at_base):
 		PlayerFuel.refuel()
+		Health.heal()
 	
 func get_velocity():
 	return velocity

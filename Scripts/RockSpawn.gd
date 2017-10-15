@@ -3,6 +3,7 @@
 extends "BaseNode2D.gd"
 
 var RockSmall = load("res://Scenes/RockSmall.tscn")
+var RockMedium = load("res://Scenes/RockMedium.tscn")
 
 # Screen Variables
 onready var screen_size = get_parent().get_viewport_rect().size
@@ -35,12 +36,16 @@ func update_max_rock_amount():
 # Spawn an assortment of rocks, enemies, etc based 
 # on distance from the center base
 func spawn():
+	randomize()
 	while (rock_amount < max_rock_amount):
-		spawn_small_rock()
+		var rand = int(rand_range(0,1000) / level)
+		if (rand > 20): spawn_outside_view(RockSmall)
+		elif (rand > 10): spawn_outside_view(RockMedium)
+		else: spawn_outside_view(RockMedium) # Replace with large
 		rock_amount += 1
 	
-# Spawn a small rock randomly right outside of the camera view
-func spawn_small_rock():
+# Spawn the object randomly right outside of the camera view
+func spawn_outside_view(obj):
 	randomize()
 	var rand_x_pos
 	var rand_y_pos
@@ -55,7 +60,7 @@ func spawn_small_rock():
 		rand_y_pos = Player.get_pos().y + (rand_range(h/2, h) * Math.choose(-1,1))
 	
 	# Instance the rock and set the position
-	var inst = RockSmall.instance()
+	var inst = obj.instance()
 	inst.set_pos(Vector2(rand_x_pos, rand_y_pos))
 	get_parent().call_deferred("add_child", inst)
 	

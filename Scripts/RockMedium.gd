@@ -8,9 +8,10 @@ var rotation = 0
 var RotationSpeed
 
 var velocity
-var speed = 0.5
+var speed = 0.25
+var mass = 4
 
-var mass = 2
+var hitpoints = 2
 
 func _ready():
 	add_to_group("Rocks")
@@ -41,6 +42,7 @@ func distance_to_player():
 
 func out_of_range():
 	if (distance_to_player() > 512):
+		RockSpawn.rock_amount -= 1
 		_destroy_no_drop()
 
 func _collisions():
@@ -56,28 +58,33 @@ func _collisions():
 		reverse()
 
 func damage():
-	_destroy()
+	if (hitpoints > 0):
+		hitpoints -= 1
+		spawn_particles()
+	if (hitpoints <= 0):
+		_destroy()
 
 func _destroy():
 	drop_item()
 	spawn_particles()
-	_destroy_no_drop()
+	queue_free()
 	
 func _destroy_no_drop():
-	RockSpawn.rock_amount -= 1
 	queue_free()
 
 func spawn_particles():
 	var inst = SmallParticles.instance()
 	inst.set_pos(get_pos())
+	inst.set_z(-1)
 	get_parent().call_deferred("add_child", inst)
 	
 func drop_item():
 	randomize()
-	var inst = MSilver.instance()
-	var rand = rand_range(0, 100)
-	if (rand < 60): inst = MSilver.instance()
-	else: inst = MGold.instance()
-	inst.init(RotationSpeed)
-	inst.set_pos(get_pos())
-	get_parent().call_deferred("add_child", inst)
+	for i in range(2):
+		var inst = MSilver.instance()
+		var rand = rand_range(0, 100)
+		if (rand < 60): inst = MSilver.instance()
+		else: inst = MGold.instance()
+		inst.init(RotationSpeed)
+		inst.set_pos(Vector2(get_pos().x + (16 * i), get_pos().y))
+		get_parent().call_deferred("add_child", inst)

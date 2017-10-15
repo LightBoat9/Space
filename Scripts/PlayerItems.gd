@@ -1,3 +1,4 @@
+# Sells items when near base
 extends "BaseNode2D.gd"
 
 func _ready():

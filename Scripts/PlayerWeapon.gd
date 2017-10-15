@@ -1,3 +1,4 @@
+# Methods for using and upgrading player weapon
 extends "BaseNode2D.gd"
 
 # Particles
@@ -17,7 +18,7 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	var at_base = Math.distance_to_point(Player.get_pos(), Base.get_pos()) < 100
+	var at_base = Math.distance_to_point(Player.get_pos(), Base.get_pos()) < 50
 	if (can_shoot && PlayerInput.key_shoot && !at_base):
 		fire()
 

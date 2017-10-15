@@ -17,6 +17,7 @@ onready var Fuel = Root.get_node("Game/GUI/Fuel")
 onready var FuelFill = Root.get_node("Game/GUI/Fuel/Fill")
 onready var Inventory = Root.get_node("Game/GUI/Inventory")
 onready var Money = Root.get_node("Game/GUI/Money")
+onready var Health = Root.get_node("Game/GUI/Health")
 
 # Misc Nodes
 onready var Base = Root.get_node("Game/Base")

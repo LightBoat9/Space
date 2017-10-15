@@ -28,7 +28,6 @@ func set_in_menu(value):
 	
 	# Also toggle the ability to move or rotate
 	PlayerControl.set_process(!in_menu)
-	PlayerGraphics.set_process(!in_menu)
 	
 	BaseUpgrades.toggle_input()
 	

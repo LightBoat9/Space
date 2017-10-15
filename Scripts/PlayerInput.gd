@@ -1,3 +1,4 @@
+# Information about player input
 extends Node
 
 # Movement

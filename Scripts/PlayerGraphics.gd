@@ -1,9 +1,5 @@
-extends Node
-
-# Player Nodes
-onready var Player = get_parent()
-onready var PlayerInput = get_parent().get_node("PlayerInput")
-onready var PlayerFuel = get_parent().get_node("PlayerFuel")
+# Handles the player particles
+extends "BaseNode2D.gd"
 
 # Particle Nodes
 onready var PForward = get_parent().get_node("ParticlesForward")
@@ -19,12 +15,9 @@ func _process(delta):
 func move_particles():
 	var forward = PlayerInput.key_up
 	var back = PlayerInput.key_down
-	if (forward && PlayerFuel.get_fuel() > 0):
-		PForward.set_emitting(true)
-		PBack.set_emitting(false)
-	elif (back && PlayerFuel.get_fuel() > 0):
-		PBack.set_emitting(true)
-		PForward.set_emitting(false)
+	if ((forward || back) && PlayerFuel.get_fuel() > 0 && !Player.in_menu):
+		PForward.set_emitting(Math.conditional(back, false, forward))
+		PBack.set_emitting(Math.conditional(forward, false, back))
 	else:
 		PForward.set_emitting(false)
 		PBack.set_emitting(false)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://Scenes/Math.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Math.gd" type="Script" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://Textures/gui/fuel/0.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Money.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Health.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/RockMedium.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/EnemyTurrent.tscn" type="PackedScene" id=13]
 
 [node name="Game" type="Node2D"]
 
@@ -57,5 +61,18 @@ transform/pos = Vector2( 48, 16 )
 [node name="Money" parent="GUI" instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 16, 268 )
+
+[node name="Health" parent="GUI" instance=ExtResource( 10 )]
+
+transform/pos = Vector2( 480, 264 )
+script/script = ExtResource( 11 )
+
+[node name="RockMedium" parent="." instance=ExtResource( 12 )]
+
+transform/pos = Vector2( 177.826, 138.908 )
+
+[node name="EnemyTurrent" parent="." instance=ExtResource( 13 )]
+
+transform/pos = Vector2( 109.001, 129.001 )
 
 

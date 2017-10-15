@@ -1,3 +1,5 @@
+# Information about the players fuel supply and methods for 
+# using, refilling, and upgrading fuel
 extends "BaseNode2D.gd"
 
 var fuel = 1 setget , get_fuel
